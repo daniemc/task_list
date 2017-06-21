@@ -37,7 +37,7 @@
                 
             </ul>
 
-            <form class="new-task-form">
+            <form @submit.prevent="createTask" class="new-task-form">
                 <input type="text" name="nueva_tarea" value="" class="form-control">
                 <button class="btn btn-primary">Añadir tarea</button>
             </form>
