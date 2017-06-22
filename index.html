@@ -23,12 +23,12 @@
         <script src="https://unpkg.com/vue"></script>
 
         <script type="text/x-template" id="task-template">
-            <li class="list-group-item" :class="{editing: task.editing, completed: !task.pending}">
+            <li class="list-group-item" :class="{editing: editing, completed: !task.pending}">
                     <a @click.prevent="updateStatus">
                         <span class="glyphicon " :class="task.pending ? 'glyphicon-unchecked' : 'glyphicon-check'"></span>
                     </a>
 
-                    <template v-if="!task.editing">
+                    <template v-if="!editing">
                         <span  class="description">{{task.description}}</span>
                         <div>
                             <a @click.prevent="edit" class="glyphicon glyphicon-edit"></a>

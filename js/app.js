@@ -1,4 +1,10 @@
 Vue.component('app-task', {
+    data: function() {
+        return{
+            editing: false,
+            edited_description: '',
+        }
+    },
     template: '#task-template',
     props: ['tasks', 'task', 'index'],
     methods: {
@@ -6,18 +12,16 @@ Vue.component('app-task', {
             this.task.pending = !this.task.pending;
         },
         edit: function(){
-            this.tasks.forEach(function(task) {
-                task.editing = false;
-            });
+            
             this.edited_description = this.task.description;
-            this.task.editing = true;
+            this.editing = true;
         },
         update: function(){
             this.task.description = this.edited_description;
-            this.task.editing = false;
+            this.editing = false;
         },
         discartEditing: function(){
-            this.task.editing = false;
+            this.editing = false;
         },
         remove: function(){
             this.tasks.splice(this.index, 1);
@@ -43,25 +47,22 @@ var vm = new Vue({
                 return task.pending;
             });
         }
-    },
+    },    
     data: {
-        edited_description: '',
+        
         new_task: '',
         tasks: [
             {
                 description: "Tarea 1",
-                pending: true,
-                editing: false
+                pending: true
             },
             {
                 description: "Tarea 2",
-                pending: true,
-                editing: false
+                pending: true
             },
             {
                 description: "Tarea 3",
-                pending: false,
-                editing: false
+                pending: false
             },
         ]
     }
