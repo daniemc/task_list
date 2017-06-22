@@ -10,30 +10,9 @@
     <body>
         <div id="app" class="container">
             <h2>Tareas</h2>
-            <ul class="list-group tasks">
-                <li v-for="(task, index) in tasks" class="list-group-item" :class="{editing: task.editing, completed: !task.pending}">
-                    <a @click.prevent="updateStatus(task)">
-                        <span class="glyphicon " :class="task.pending ? 'glyphicon-unchecked' : 'glyphicon-check'"></span>
-                    </a>
-
-                    <template v-if="!task.editing">
-                        <span  class="description">{{task.description}}</span>
-                        <div>
-                            <a @click.prevent="editTask(task)" class="glyphicon glyphicon-edit"></a>
-                            <a @click.prevent="removeTask(index)" class="glyphicon glyphicon-trash"></a>
-                        </div>
-                    </template>
-
-                    <template v-else>
-                        <input type="text" name="txt_edit" v-model="edited_description">
-                        <div>
-                            <a @click.prevent="updateTask(task)" class="glyphicon glyphicon-ok"></a>
-                            <a @click.prevent="discartEditing(task)" class="glyphicon glyphicon-remove"></a>
-                        </div>
-                    </template>                                    
-                    
-                </li>
-                
+            <ul class="list-group tasks">                
+                <li is="app-task" v-for="(task, index) in tasks" 
+                :tasks="tasks" :task="task" :index="index"></li>
             </ul>
             <p><a @click.prevent="removeCompleteTasks">Eliminar tareas completadas</a></p>
             <form @submit.prevent="createTask" class="new-task-form">
@@ -42,6 +21,33 @@
             </form>
         </div>
         <script src="https://unpkg.com/vue"></script>
-        <script src="js/app.js"></script>       
+
+        <script type="text/x-template" id="task-template">
+            <li class="list-group-item" :class="{editing: task.editing, completed: !task.pending}">
+                    <a @click.prevent="updateStatus">
+                        <span class="glyphicon " :class="task.pending ? 'glyphicon-unchecked' : 'glyphicon-check'"></span>
+                    </a>
+
+                    <template v-if="!task.editing">
+                        <span  class="description">{{task.description}}</span>
+                        <div>
+                            <a @click.prevent="edit" class="glyphicon glyphicon-edit"></a>
+                            <a @click.prevent="remove" class="glyphicon glyphicon-trash"></a>
+                        </div>
+                    </template>
+
+                    <template v-else>
+                        <input type="text" name="txt_edit" v-model="edited_description">
+                        <div>
+                            <a @click.prevent="update" class="glyphicon glyphicon-ok"></a>
+                            <a @click.prevent="discartEditing" class="glyphicon glyphicon-remove"></a>
+                        </div>
+                    </template>                                    
+                    
+                </li>
+        </script> 
+
+        <script src="js/app.js"></script>   
+
     </body>
 </html>
