@@ -1,1 +1,3 @@
-"#Task list with Vue" 
+#Task list
+
+Task list web using Vue Js
